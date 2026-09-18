@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,6 +47,17 @@ public class ProdukController {
     return ResponseEntity.ok(produkService.saveProduk(produk));
   }
 
+  @PutMapping("/{id}")
+  public ResponseEntity<Produk> updateProduk(@PathVariable("id") Long id, @RequestBody Produk produk) {
+    return ResponseEntity.ok(produkService.updateProduk(id, produk));
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteProduk(@PathVariable("id") Long id) {
+    produkService.deleteProduk(id);
+    return ResponseEntity.noContent().build();
+  }
+
   // jenis produk
 
   @GetMapping("/jenis")
@@ -60,5 +73,16 @@ public class ProdukController {
   @PostMapping("/jenis")
   public ResponseEntity<JenisProduk> createJenisProduk(@RequestBody JenisProduk jenisProduk) {
     return ResponseEntity.ok(jenisProdukService.saveJenisProduk(jenisProduk));
+  }
+
+  @PutMapping("/jenis/{id}")
+  public ResponseEntity<JenisProduk> updateJenisProduk(@PathVariable("id") Long id, @RequestBody JenisProduk jenisProduk) {
+    return ResponseEntity.ok(jenisProdukService.updateJenisProduk(id, jenisProduk));
+  }
+
+  @DeleteMapping("/jenis/{id}")
+  public ResponseEntity<Void> deleteJenisProduk(@PathVariable("id") Long id) {
+    jenisProdukService.deleteJenisProduk(id);
+    return ResponseEntity.noContent().build();
   }
 }
